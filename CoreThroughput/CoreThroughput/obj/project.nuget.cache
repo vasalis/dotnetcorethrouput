@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "IW6n6LTFTFMVj8wl/UJblCDU4xlJmU0J23hvoj6veCNhItQO85rq+hXiXWUTi3/KgHCBJrmdZ6vuY/YBUe88xw==",
+  "success": true,
+  "projectFilePath": "C:\\01_SourceCode\\Demos\\NetCoreThroughPutTest\\CoreThroughput\\CoreThroughput\\CoreThroughput.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vasalis\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512"
+  ],
+  "logs": []
+}
