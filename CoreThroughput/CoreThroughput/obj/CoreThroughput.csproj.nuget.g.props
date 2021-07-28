@@ -17,6 +17,28 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Content Include="$(NuGetPackageRoot)microsoft.azure.cosmos\3.20.1\contentFiles\any\netstandard2.0\ThirdPartyNotice.txt" Condition="Exists('$(NuGetPackageRoot)microsoft.azure.cosmos\3.20.1\contentFiles\any\netstandard2.0\ThirdPartyNotice.txt')">
+      <NuGetPackageId>Microsoft.Azure.Cosmos</NuGetPackageId>
+      <NuGetPackageVersion>3.20.1</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <Private>False</Private>
+      <Link>ThirdPartyNotice.txt</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <None Include="$(NuGetPackageRoot)microsoft.applicationinsights.profiler.aspnetcore\2.2.0\contentFiles\any\net5.0\ServiceProfiler\TraceUpload.zip" Condition="Exists('$(NuGetPackageRoot)microsoft.applicationinsights.profiler.aspnetcore\2.2.0\contentFiles\any\net5.0\ServiceProfiler\TraceUpload.zip')">
+      <NuGetPackageId>Microsoft.ApplicationInsights.Profiler.AspNetCore</NuGetPackageId>
+      <NuGetPackageVersion>2.2.0</NuGetPackageVersion>
+      <NuGetItemType>None</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>TraceUpload.zip</TargetPath>
+      <Private>True</Private>
+      <Link>ServiceProfiler\TraceUpload.zip</Link>
+    </None>
+  </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)microsoft.visualstudio.azure.containers.tools.targets\1.10.13\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.visualstudio.azure.containers.tools.targets\1.10.13\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" />
   </ImportGroup>
