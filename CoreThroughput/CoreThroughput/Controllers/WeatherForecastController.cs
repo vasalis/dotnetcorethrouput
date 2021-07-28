@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace CoreThroughput.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -38,6 +39,27 @@ namespace CoreThroughput.Controllers
             lExit[0].Summary = ".NET 5 Version #3";
 
             return lExit;
+        }
+
+        // GET: WeatherForecast/SystemDetails
+        [HttpGet]
+        public IActionResult SystemDetails()
+        {
+            IActionResult returnValue = null;
+
+            try
+            {
+                var lSystemInfo = $"Processor count: {Environment.ProcessorCount}, OS: {Environment.OSVersion}";
+                returnValue = new OkObjectResult(lSystemInfo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Could not SystemDetails. Exception thrown: {ex.Message}");
+
+                returnValue = new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+
+            return returnValue;
         }
     }
 }

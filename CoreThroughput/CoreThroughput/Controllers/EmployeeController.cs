@@ -149,6 +149,5 @@ namespace CoreThroughput.Controllers
                 _logger.LogError(ex, $"Could not create new Employee. Exception thrown: {ex.Message}");
             }
         }
-
     }
 }

@@ -33,6 +33,7 @@ namespace CoreThroughput
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
             
             services.AddServiceProfiler();
+                       
 
             services.ConfigureTelemetryModule<EventCounterCollectionModule>(
             (module, o) =>
