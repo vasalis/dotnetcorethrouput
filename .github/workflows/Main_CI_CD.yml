@@ -58,5 +58,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.projectPrefix }}WebApp 
-        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/output'
+        package: './CoreThroughput/output'
   
