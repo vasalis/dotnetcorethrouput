@@ -19,7 +19,7 @@ on:
 
 env:
   azureLocation: northeurope                # set this to the target Azure Region
-  projectPrefix: dotnetsaturation           # this is your project's prefix  
+  projectPrefix: dotnetsat           # this is your project's prefix  
   DOTNET_VERSION: '5.0'                     # Dotnet version - don't change this   
 
 jobs:
@@ -40,7 +40,7 @@ jobs:
       id: InitialSetup
 
     # Setup .Net for the environment
-    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+    - name: Setup DotNet Environment
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}

@@ -7,11 +7,13 @@ Write-Output "(Got from ENV): RG: $resourceGroupName location: $azureLocation"
 Write-Output "Environment Azure CL: $(az --version)"
 
 # App Service related variables
-$appServiceName = $projectPrefix + "DotNetCoreThroughPut"
+$appServiceName = $projectPrefix + "WebApp"
 $appInsightsName = $appServiceName + 'AI'
 
 # Cosmos Related variables
 $cosmosDbAccount = $projectPrefix + 'cosmosdb'
+
+Write-Output "Resource group name will be: $resourceGroupName App Service name will be: $appServiceName, Application insights name will be: $appInsightsName, Cosmos db account name will be: $cosmosDbAccount"
 
 # Create the resource group
 Write-Output "About to create resource group: $resourceGroupName" 
