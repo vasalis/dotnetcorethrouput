@@ -1,0 +1,62 @@
+# CONFIGURATION
+# For help, go to https://github.com/Azure/Actions
+#
+# This CI/CD pipeline creates an environment from scratch (if not already there) and deploys the latest version of the solution to the App Service
+#
+# 1. Set up the following secrets in your repository:
+#   AZURE_CREDENTIALS
+#
+# 2. Change azureLocation and projectPrefix environment variables for your configuration
+
+name: Main_CI_CD
+
+on:
+  push:
+    branches: [master]    
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  azureLocation: northeurope                # set this to the target Azure Region
+  projectPrefix: dotnetsaturation           # this is your project's prefix  
+  DOTNET_VERSION: '5.0'                     # Dotnet version - don't change this   
+
+jobs:
+  Main_CI_CD:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2    
+    - name: Login via Az module
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        enable-AzPSSession: true    
+
+    # Setup the needed infrastructure using a powershell script that executes Azure CLI commands.
+    - name: 'Run Initial Setup powershell'
+      shell: pwsh
+      run: IaC/AppService/00_AppService_Initial_Setup_IaC.ps1
+      id: InitialSetup
+
+    # Setup .Net for the environment
+    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    # Build the Solution
+    - name: 'Resolve Project Dependencies Using Dotnet'
+      shell: pwsh
+      run: |
+        pushd './CoreThroughput/'
+        dotnet build --configuration Release --output ./output
+        popd
+
+    # Deploy to Azure Web apps
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ env.projectPrefix }}WebApp 
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/output'
+  
