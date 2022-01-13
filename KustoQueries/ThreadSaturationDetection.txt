@@ -1,0 +1,27 @@
+//
+// Thread Pool Saturation Detection Query
+// Detect threadpool-thread-count Event Counter abnormal peaks
+// Important: This KQL tries to "guess" the vCores of the Host machine, this can be error prone but it should work in most cases. You can always tweak the query and set the vCores manually.
+// Author: Vassilis Salis
+//
+// Limit multiplier factor. We consider "the vicinity" of theoretical limit to be 10 times the limit, you might need to tweak this value accordingly. 
+let mLimitMultiFactor = 10;
+// The time bucket for all averages
+let mTimegrain = 10s;
+// Setting time window for last 12h, change accordingly if needed.
+let mEndDate = now();
+let mStartDate = mEndDate-1h;
+let mvCoresCount = performanceCounters
+| where name == "% Processor Time"
+| summarize vCores = round((max(value)/100))
+| project vCores, name="System.Runtime|ThreadPool Thread Count";
+// Thread Pool Thread Count (should have values in the vicinity of vCores*2)
+let mThreadPoolThreadsCount = customMetrics
+| where timestamp >= mStartDate and timestamp <= mEndDate
+| where name == ```System.Runtime|ThreadPool Thread Count```
+| summarize ThreadCount = avg(valueMax) by bin(timestamp, mTimegrain), name;
+let mThreadSaturationEvents = mThreadPoolThreadsCount
+| join kind=leftouter (mvCoresCount) on name
+| where ThreadCount > mLimitMultiFactor * (vCores * 2);
+mThreadSaturationEvents
+| render columnchart

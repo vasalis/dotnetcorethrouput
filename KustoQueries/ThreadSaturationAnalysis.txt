@@ -1,0 +1,28 @@
+//
+// Thread Pool Saturation Analytics Query
+// threadpool-thread-count Event Counter | incoming requests rate | incoming requests duration
+// Tip: Modify time window and normalization denominators to tweak Y axis scale
+// Author: Vassilis Salis
+//
+// The time bucket for all averages
+let mTimegrain = 10s;
+// Setting time window for last 12h, change accordingly if needed.
+let mEndDate = now();
+let mStartDate = mEndDate-12h;
+// Incoming requests rate, set to 100 requests scale unit, change denominator if needed.
+let mRequests = requests
+| where timestamp >= mStartDate and timestamp <= mEndDate
+| summarize CountPerTimeUnit = todouble(sum(itemCount))/todouble(100) by bin(timestamp, mTimegrain)
+| project timestamp, todouble(CountPerTimeUnit), name="Requests per time unit [x100]";
+// Incoming requests duration in seconds, change denominator if needed.
+let mRequestsDuration = requests
+| where timestamp >= mStartDate and timestamp <= mEndDate
+| summarize CountPerTimeUnit = todouble(avg(duration))/todouble(1000) by bin(timestamp, mTimegrain)
+| project timestamp, todouble(CountPerTimeUnit), name="Requests duration per time unit [secs]";
+// Thread Pool Thread Count (should have values in the vicinity of vCores*2)
+let mThreadPoolThreadCount = customMetrics
+| where timestamp >= mStartDate and timestamp <= mEndDate
+| where name == ```System.Runtime|ThreadPool Thread Count```
+| summarize CountPerTimeUnit = todouble(avg(valueMax)/todouble(1)) by bin(timestamp, mTimegrain), name;
+union mRequests, mRequestsDuration, mThreadPoolThreadCount
+| render timechart 

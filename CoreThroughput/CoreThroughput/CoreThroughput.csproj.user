@@ -5,6 +5,6 @@
     <Controller_SelectedScaffolderID>ApiControllerWithActionsScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ControllerDialogWidth>650</WebStackScaffolding_ControllerDialogWidth>
-    <NameOfLastUsedPublishProfile>C:\01_SourceCode\Demos\NetCoreThroughPutTest\CoreThroughput\CoreThroughput\Properties\PublishProfiles\acrdotnetcore1.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\01_SourceCode\Demos\dotnetcorethrouput\CoreThroughput\CoreThroughput\Properties\PublishProfiles\dotnetcorethroughput1.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

@@ -64,7 +64,7 @@ namespace CoreThroughput.Controllers
             return returnValue;
         }
 
-        // GET: api/Employee/Employees
+        // GET: api/Employee/EmployeesWithWait
         // Bad code practive - this will block the main Thread...
         [HttpPost]
         public IActionResult EmployeesWithWait()
@@ -92,7 +92,7 @@ namespace CoreThroughput.Controllers
                     }
 
                     // Add this to make it even worse
-                    Thread.Sleep(1000);
+                    // Thread.Sleep(1000);
 
                     returnValue = new OkObjectResult(lResults);
                 }
@@ -107,7 +107,7 @@ namespace CoreThroughput.Controllers
             return returnValue;
         }
 
-        // POST: api/Student
+        // POST: api/Employee/NewEmployee
         [HttpPost]
         public async Task NewEmployee([FromBody] string value)
         {
@@ -123,8 +123,8 @@ namespace CoreThroughput.Controllers
             }           
         }
 
-        // POST: api/Student
-        [HttpPost]
+        // POST: api/Employee/CreateNewEmployeesBatch
+        [HttpGet]
         public async Task CreateNewEmployeesBatch()
         {
             try

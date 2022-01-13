@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dot-api
+spec:
+  selector:
+    matchLabels:
+      app: dot-api
+  template:
+    metadata:
+      labels:
+        app: dot-api # the label for the pods and the deployments
+    spec:
+      containers:
+      - name: dot-api
+        image: dotnetcorethroughput.azurecr.io/corethroughput:20210905111837 # IMPORTANT: update with your own repository
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80 # the application listens to this port        

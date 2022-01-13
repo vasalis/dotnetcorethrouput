@@ -36,7 +36,7 @@ namespace CoreThroughput.Controllers
             })
             .ToArray();
 
-            lExit[0].Summary = ".NET 5 Version #3";
+            lExit[0].Summary = ".NET 5 Version #4";
 
             return lExit;
         }

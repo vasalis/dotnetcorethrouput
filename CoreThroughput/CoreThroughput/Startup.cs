@@ -32,7 +32,8 @@ namespace CoreThroughput
             services.AddSingleton<Container>(GetContainer);
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
             
-            services.AddServiceProfiler();
+            // Comment out to enable profiler.
+            // services.AddServiceProfiler();
                        
 
             services.ConfigureTelemetryModule<EventCounterCollectionModule>(
@@ -40,6 +41,15 @@ namespace CoreThroughput
             {
                 // This removes all default counters, if any.
                 module.Counters.Clear();
+
+                // System.Runtime
+                module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "cpu-usage"));
+                module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "threadpool-queue-length"));
+                module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "threadpool-thread-count"));
+                
+                
+                #region Extra Event Counters, not needed for the Thread Saturation Simulation
+
                 // Add Kestrel Performance Counters
                 // https://github.com/dotnet/aspnetcore/blob/main/src/Servers/Kestrel/Core/src/Internal/Infrastructure/KestrelEventSource.cs
 
@@ -61,11 +71,6 @@ namespace CoreThroughput
                 module.Counters.Add(new EventCounterCollectionRequest("Microsoft.AspNetCore.Hosting", "requests-per-second"));
                 module.Counters.Add(new EventCounterCollectionRequest("Microsoft.AspNetCore.Hosting", "total-requests"));
 
-                // System.Runtime
-                module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "cpu-usage"));
-                module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "threadpool-queue-length"));
-                module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "threadpool-thread-count"));
-
                 // System.Net.Http
                 module.Counters.Add(new EventCounterCollectionRequest("System.Net.Http", "requests-started"));
                 module.Counters.Add(new EventCounterCollectionRequest("System.Net.Http", "requests-started-rate"));
@@ -77,6 +82,8 @@ namespace CoreThroughput
                 module.Counters.Add(new EventCounterCollectionRequest("Microsoft-Windows-DotNETRuntime", "ThreadPoolWorkerThreadStart"));
                 module.Counters.Add(new EventCounterCollectionRequest("Microsoft-Windows-DotNETRuntime", "ThreadPoolWorkerThreadStop"));
                 module.Counters.Add(new EventCounterCollectionRequest("Microsoft-Windows-DotNETRuntime", "ThreadPoolWorkerThreadAdjustmentSample"));
+
+                #endregion // Extra Event Counters, not needed for the Thread Saturation Simulation
             }
         );
         }
@@ -103,11 +110,9 @@ namespace CoreThroughput
         {
             try
             {
-                string lDatePrefix = $"_{DateTime.Now.Year}_{DateTime.Now.Month}_{DateTime.Now.Day}";
-
                 var lConnectionString = Configuration["CosmosDb:CosmosConnectionString"];
                 var lCosmosDbName = Configuration["CosmosDb:CosmosDbName"];
-                var lCosmosDbContainerName = $"{Configuration["CosmosDb:CosmosDbContainerName"]}{lDatePrefix}";
+                var lCosmosDbContainerName = Configuration["CosmosDb:CosmosDbContainerName"];
                 var lCosmosDbPartionKey = Configuration["CosmosDb:CosmosDbPartitionKey"];
 
                 var lClient = new CosmosClient(lConnectionString, new CosmosClientOptions
