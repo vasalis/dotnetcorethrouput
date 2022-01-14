@@ -48,9 +48,11 @@ The basic functionality resides on the [Employees Controller](https://github.com
 
 ### Running the sample
 
-1. Clone the repository
-2. Create a GitHub Secret with your Azure subscription credentials
-3. Edit the {TODO} file and change (if needed) the names of the resources, starting with the resource group. When committing it should auto-trigger the CI/CD pipeline
+1. Clone or fork the repository. Use a GitHub repo in order to take advantage of the existing GitHub Actions.
+2. Create an Azure Service Principal
+   1. Run this: `az ad sp create-for-rbac -n "DotNetCoreGitHubActions" --role Contributor --sdk-auth` (you can use any name you like instead of DotNetCoreGitHubActions)
+   2. Get the result and create a GitHub repo Secret named AZURE_CREDENTIALS. For more details see [here](https://github.com/marketplace/actions/azure-login)
+3. Edit the [Main_CI_CD](https://github.com/vasalis/dotnetcorethrouput/blob/master/.github/workflows/Main_CI_CD.yml) GitHub Action file and change (if needed) the Azure target region (`azureLocation`) and the project's prefix (`projectPrefix`) environment variables. When committing it should auto-trigger the CI/CD pipeline
 4. Run CI/CD workflow if you skipped step 3
 5. Navigate to Azure resource group, locate the App Service, and make a call to ***Your App Service URL/WeatherForecast/SystemDetails*** to see that the app is working. Outcome should be similar to this: ![Sample working ok](https://github.com/vasalis/dotnetcorethrouput/blob/master/Screenshots/DotNetThrouput_Working.jpg)
 6. Create 1.000 Employee Entities on the database by calling the `api/Employee/CreateNewEmployeesBatch`. To make sure that it worked call `api/Employee/Employees` (careful, it's a POST method).

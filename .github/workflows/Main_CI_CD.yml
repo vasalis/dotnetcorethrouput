@@ -19,7 +19,7 @@ on:
 
 env:
   azureLocation: northeurope                # set this to the target Azure Region
-  projectPrefix: dotnetsat           # this is your project's prefix  
+  projectPrefix: dotnetsat                  # this is your project's prefix  
   DOTNET_VERSION: '5.0'                     # Dotnet version - don't change this   
 
 jobs:
