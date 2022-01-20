@@ -1,4 +1,4 @@
-# Detecting Thread Saturation on .Net Core using Application Insights
+# Detecting ThreadPool Starvation on .Net Core using Application Insights
 
 ## TL;DR
 
