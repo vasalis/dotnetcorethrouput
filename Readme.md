@@ -33,10 +33,11 @@ The basic functionality resides on the [Employees Controller](https://github.com
 ### Prerequisites
 
 1. Basic theory on the subject (.Net Core Thread Saturation), make sure you have done some basic reading especially on the below great articles
-    1. [Diagnosing .NET Core ThreadPool Starvation with PerfView](https://docs.microsoft.com/en-us/archive/blogs/vancem/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall?WT.mc_id=DT-MVP-5003493)
-    2. [.NET ThreadPool starvation, and how queuing makes it worse](https://medium.com/criteo-engineering/net-threadpool-starvation-and-how-queuing-makes-it-worse-512c8d570527)
-    3. [EventCounters introduction](https://docs.microsoft.com/en-us/azure/azure-monitor/app/eventcounters) and focus [here](https://docs.microsoft.com/en-us/azure/azure-monitor/app/eventcounters#customizing-counters-to-be-collected)
-    4. [Well-known EventCounters in .NET](https://docs.microsoft.com/en-us/dotnet/core/diagnostics/available-counters)
+    1. [ASP.NET Core Diagnostic Scenarios](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios)
+    2. [Diagnosing .NET Core ThreadPool Starvation with PerfView](https://docs.microsoft.com/en-us/archive/blogs/vancem/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall?WT.mc_id=DT-MVP-5003493)
+    3. [.NET ThreadPool starvation, and how queuing makes it worse](https://medium.com/criteo-engineering/net-threadpool-starvation-and-how-queuing-makes-it-worse-512c8d570527)
+    4. [EventCounters introduction](https://docs.microsoft.com/en-us/azure/azure-monitor/app/eventcounters) and focus [here](https://docs.microsoft.com/en-us/azure/azure-monitor/app/eventcounters#customizing-counters-to-be-collected)
+    5. [Well-known EventCounters in .NET](https://docs.microsoft.com/en-us/dotnet/core/diagnostics/available-counters)
 2. Basic understanding of Application Insights and Kusto Querying Language
     1. [Application Insights for ASP.NET Core applications](https://docs.microsoft.com/en-us/azure/azure-monitor/app/asp-net-core)
     2. [Kusto Querying Language Reference](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/)
