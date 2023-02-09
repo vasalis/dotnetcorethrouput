@@ -7,7 +7,7 @@ Write-Output "(Got from ENV): RG: $resourceGroupName location: $azureLocation"
 Write-Output "Environment Azure CL: $(az --version)"
 
 # App Service related variables
-$appServiceName = $projectPrefix + "WebApp"
+$appServiceName = $projectPrefix + "WApp"
 $appInsightsName = $appServiceName + 'AI'
 
 # Cosmos Related variables
