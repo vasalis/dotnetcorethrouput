@@ -38,7 +38,7 @@ Write-Output "Got app insights connection string: $appInsightsConnectionString"
 az appservice plan create --name $appServiceName --is-linux --resource-group $resourceGroupName --sku P2V2
 
 # Create a web app.
-az webapp create --name $appServiceName --resource-group $resourceGroupName --plan $appServiceName --runtime 'DOTNET:5.0'
+az webapp create --name $appServiceName --resource-group $resourceGroupName --plan $appServiceName --runtime 'DOTNET|5.0'
 
 # Setup environment variables for Azure Function
 az webapp config appsettings set --name $appServiceName --resource-group $resourceGroupName --settings CosmosDb__CosmosConnectionString=$cosmosConString
